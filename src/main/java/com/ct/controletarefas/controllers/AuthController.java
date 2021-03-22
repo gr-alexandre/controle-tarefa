@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ct.controletarefas.responses.Response;
 import com.ct.controletarefas.services.TokenAuthenticationService;
 import com.ct.controletarefas.services.UsuarioService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 import com.ct.controletarefas.dtos.UsuarioDto;
 import com.ct.controletarefas.entities.Usuario;
 import com.ct.controletarefas.filters.UsuarioCredenciais;
@@ -28,11 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/api/controle-tarefa/auth")
 @CrossOrigin(origins = "*")
+@Api(value = "Api Auth")
 public class AuthController {
 
 	@Autowired
 	private UsuarioService usuarioService;
 
+	@ApiOperation(value = "Logar e gerar token")
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<Response<UsuarioDto>> auth(@Valid @RequestBody UsuarioCredenciais usuarioCredenciais,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session) throws Exception{
 		

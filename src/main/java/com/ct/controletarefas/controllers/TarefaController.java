@@ -31,18 +31,22 @@ import com.ct.controletarefas.enums.StatusTarefaEnum;
 import com.ct.controletarefas.responses.Response;
 import com.ct.controletarefas.services.TarefaService;
 
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/controle-tarefa/tarefa")
 @CrossOrigin(origins = "*")
+
+@Api(value = "Api Tarefa")
 public class TarefaController {
 	
 	@Autowired
 	TarefaService tarefaService;
 	
+	@ApiOperation(value = "Incluir tarefa")
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<String> incluir(@Valid @RequestBody TarefaDto tarefaDto,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
@@ -68,6 +72,7 @@ public class TarefaController {
 		return ResponseEntity.ok("Tarefa incluida com sucesso");
 	}
 	
+	@ApiOperation(value = "Listar todas tarefas de todos usuarios - apenas ROLE_SUPER_USER")
 	@GetMapping(consumes = "application/json")
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasTodosUsuarios(HttpServletRequest req, HttpServletResponse res, HttpSession session ) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
@@ -84,6 +89,7 @@ public class TarefaController {
 		
 	}
 	
+	@ApiOperation(value = "Listar todas tarefas do todos usuario")
 	@GetMapping(value="/usuario/{idUsuario}" )
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasDoUsuario(@PathVariable Long idUsuario,HttpServletRequest req, HttpServletResponse res,HttpSession session) throws Exception {
 		
@@ -101,6 +107,7 @@ public class TarefaController {
 		
 	}
 	
+	@ApiOperation(value = "Listar todas tarefas do Todos usuario por status")
 	@GetMapping(value="/usuario/{idUsuario}/status/{status}" )
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasDoUsuarioPorStatus(@PathVariable Long idUsuario,@PathVariable int status,HttpSession session) throws Exception {
 		
@@ -118,9 +125,9 @@ public class TarefaController {
 		
 	}
 	
-	
+	@ApiOperation(value = "Listar alterar dados da tarefa")
 	@PutMapping(consumes = "application/json")
-	public ResponseEntity<String> update(@Valid @RequestBody TarefaDto tarefaDto,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session ) throws Exception{
+	public ResponseEntity<String> alterar(@Valid @RequestBody TarefaDto tarefaDto,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session ) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
 		Tarefa tarefa = this.converterParaTarefa(tarefaDto);		
 		
@@ -141,6 +148,7 @@ public class TarefaController {
 		return ResponseEntity.ok("Tarefa alterada com sucesso");
 	}
 	
+	@ApiOperation(value = "Excluir tarefa")
 	@DeleteMapping(value = "/id/{id}/usuario/{idUsuario}")
 	public ResponseEntity<String> exluir(@PathVariable Long id,@PathVariable Long idUsuario, HttpSession session) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
