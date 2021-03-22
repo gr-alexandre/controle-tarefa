@@ -12,7 +12,7 @@ public interface TarefaService {
 	
 	public List<Tarefa> listarTarefasPorIdUsuarios(Long idUsuario);
 	
-	List<Tarefa> listarTarefasPorIdUsuariosPorStatus(Long idUsuario,int status);
+	public List<Tarefa> listarTarefasPorIdUsuariosPorStatus(Long idUsuario,int status);
 	
 	public void excluirTarefa(Long id);
 	

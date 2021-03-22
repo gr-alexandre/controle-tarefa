@@ -19,8 +19,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	private UsuarioRepository usuarioRepository;
 
 	public Usuario login(String email, String password) {
-		log.info("Login email: {}", email);
-		log.info("Login password: {}", password);
+		log.info("Buscar para o login email: {}", email);
 		return usuarioRepository.findByEmailAndPassword(email, password);
 	}
 

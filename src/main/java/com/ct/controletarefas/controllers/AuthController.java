@@ -45,12 +45,13 @@ public class AuthController {
 		if(session.getAttribute("usuarioLogado") != null) {
 			session.removeAttribute("usuarioLogado");
 		}
-		
+		log.info("Logar {}", usuarioCredenciais.getEmail());
 		Usuario usuario = new Usuario();
 		usuario = validarAcessoUsuario(usuarioCredenciais, result);
 		Response<UsuarioDto> response = new Response<UsuarioDto>();
+		
 		if(usuario==null) {
-			log.error("Erro validando Auth; {}" + result.getAllErrors());
+			log.error("Não possível logar {}" , result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}

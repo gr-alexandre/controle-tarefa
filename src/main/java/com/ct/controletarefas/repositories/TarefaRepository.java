@@ -18,5 +18,5 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
 	List<Tarefa> findByIdUsuarioOrderByStatusAsc(Long idUsuario);
 	
 	@Transactional(readOnly = true)
-	List<Tarefa> findByIdUsuarioAndStatusOrderByStatusAsc(Long idUsuario,int status);
+	List<Tarefa> findByIdUsuarioAndStatusOrderByDataInclusaoDesc(Long idUsuario,int status);
 }

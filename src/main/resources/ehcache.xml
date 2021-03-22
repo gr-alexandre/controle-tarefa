@@ -1,0 +1,12 @@
+
+<ehcache>
+
+    <cache name="ListarPorID"
+        maxElementsInMemory="10000"
+        eternal="false"
+        timeToIdleSeconds="300"
+        timeToLiveSeconds="600"
+        overflowToDisk="false"
+        />
+  
+</ehcache>

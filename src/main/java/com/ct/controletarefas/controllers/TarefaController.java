@@ -50,9 +50,9 @@ public class TarefaController {
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<String> incluir(@Valid @RequestBody TarefaDto tarefaDto,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
-			
+		
 		if(usuarioLogado==null||usuarioLogado.getId()!=tarefaDto.getIdUsuario()) {
-			log.error("Erro Incluir Tarefa - nao autorizado");
+			log.error("Não foi possivel incluir a tarefa - nao autorizado");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 		
@@ -62,26 +62,30 @@ public class TarefaController {
 		
 		Response<TarefaDto> response = new Response<TarefaDto>();
 		if(result==null) {
-			log.error("Erro Incluir Tarefa; {}" + result.getAllErrors());
+			log.error("Não foi possivel incluir a tarefa: {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro Incluir Tarefa");
 		}
 		
+		log.info("Incluir tarefa: {}", tarefaDto.toString());
+		log.info("Incluir usuario: {} ", usuarioLogado.getId());
 		tarefaService.salvarTarefa(tarefa);
 		
 		return ResponseEntity.ok("Tarefa incluida com sucesso");
 	}
 	
-	@ApiOperation(value = "Listar todas tarefas de todos usuarios - apenas ROLE_SUPER_USER")
-	@GetMapping(consumes = "application/json")
+	@ApiOperation(value = "Listar todas tarefas de todos usuários - apenas ROLE_SUPER_USER")
+	@GetMapping()
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasTodosUsuarios(HttpServletRequest req, HttpServletResponse res, HttpSession session ) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
 		
 		if(usuarioLogado==null||!usuarioLogado.getPerfilUsuario().toString().equals(PerfilUsuarioEnum.ROLE_SUPER_USER.toString())) {
-			log.error("Erro Listar tarefas de todos Usuarios - nao autorizado");
+			log.error("Não foi possível listar tarefas de todos usuários - não autorizado");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-		}
-			
+		}		
+		
+		log.info("Listar tarefas de todos usuários - usuario logado: {} ", usuarioLogado.getId());
+		
 		List<Tarefa> listaTarefa = tarefaService.listarTarefasTodosUsuarios();
 		ArrayList<TarefaDto> listaTarefaDto = new ArrayList<TarefaDto>();
 		listaTarefaDto = converterParaListaTarefaDto(listaTarefa);
@@ -89,43 +93,46 @@ public class TarefaController {
 		
 	}
 	
-	@ApiOperation(value = "Listar todas tarefas do todos usuario")
+	@ApiOperation(value = "Listar todas tarefas do todos usuário")
 	@GetMapping(value="/usuario/{idUsuario}" )
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasDoUsuario(@PathVariable Long idUsuario,HttpServletRequest req, HttpServletResponse res,HttpSession session) throws Exception {
+			
+		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");		
 		
-		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
-		
-		if(usuarioLogado==null||usuarioLogado.getId()!=idUsuario) {
-			log.error("Erro Listar tarefas do Usuario - nao autorizado");
+		if(usuarioLogado==null||usuarioLogado.getId()!=idUsuario&&!usuarioLogado.getPerfilUsuario().toString().equals(PerfilUsuarioEnum.ROLE_SUPER_USER.toString())) {
+			log.error("Não foi possível listar tarefas do usuário - não autorizado");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 		
-		List<Tarefa> listaTarefa = tarefaService.listarTarefasPorIdUsuarios(usuarioLogado.getId());
+		log.info("Listar tarefas do usuário usuario logado: {} ",usuarioLogado.getId());
+		
+		List<Tarefa> listaTarefa = tarefaService.listarTarefasPorIdUsuarios(idUsuario);
 		ArrayList<TarefaDto> listaTarefaDto = new ArrayList<TarefaDto>();
 		listaTarefaDto = converterParaListaTarefaDto(listaTarefa);
 		return ResponseEntity.ok(listaTarefaDto);
 		
 	}
 	
-	@ApiOperation(value = "Listar todas tarefas do Todos usuario por status")
+	@ApiOperation(value = "Listar todas tarefas do todos usuário por status")
 	@GetMapping(value="/usuario/{idUsuario}/status/{status}" )
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasDoUsuarioPorStatus(@PathVariable Long idUsuario,@PathVariable int status,HttpSession session) throws Exception {
 		
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
 		
-		if(usuarioLogado==null||usuarioLogado.getId()!=idUsuario) {
-			log.error("Erro Listar tarefas do Usuario - nao autorizado");
+		if(usuarioLogado==null||usuarioLogado.getId()!=idUsuario&&!usuarioLogado.getPerfilUsuario().toString().equals(PerfilUsuarioEnum.ROLE_SUPER_USER.toString())) {
+			log.error("Não foi possível listar tarefas do usuario por status - não autorizado");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 		}
 		
-		List<Tarefa> listaTarefa = tarefaService.listarTarefasPorIdUsuariosPorStatus(usuarioLogado.getId(),status);
+		log.info("Listar tarefas do usuário por status usuario logado: {} ", usuarioLogado.getId());
+		List<Tarefa> listaTarefa = tarefaService.listarTarefasPorIdUsuariosPorStatus(idUsuario,status);
 		ArrayList<TarefaDto> listaTarefaDto = new ArrayList<TarefaDto>();
 		listaTarefaDto = converterParaListaTarefaDto(listaTarefa);
 		return ResponseEntity.ok(listaTarefaDto);
 		
 	}
 	
-	@ApiOperation(value = "Listar alterar dados da tarefa")
+	@ApiOperation(value = "Alterar dados da tarefa")
 	@PutMapping(consumes = "application/json")
 	public ResponseEntity<String> alterar(@Valid @RequestBody TarefaDto tarefaDto,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session ) throws Exception{
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
@@ -133,18 +140,18 @@ public class TarefaController {
 		
 		Response<TarefaDto> response = new Response<TarefaDto>();
 		if(usuarioLogado==null||usuarioLogado.getId()!=tarefaDto.getIdUsuario()) {
-			log.error("Erro ao Alterar Tarefa - nao autorizado" );
+			log.error("Não foi possível alterar a tarefa - não autorizado" );
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Erro Ao alterar Tarefa - nao autorizado");
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Não foi possível alterar a tarefa - não autorizado");
 		}
 		
 		if(result==null) {
-			log.error("Erro ao Alterar Tarefa; {}" + result.getAllErrors());
+			log.error("Não foi possível alterar a tarefa {}", result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro Ao alterar Tarefa");
-		}		
-		tarefaService.salvarTarefa(tarefa);
-		
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foi possível alterar {" + tarefaDto.toString() +"}");
+		}
+		log.error("Alterar tarefa {} ", tarefaDto.toString() );
+		tarefaService.salvarTarefa(tarefa);		
 		return ResponseEntity.ok("Tarefa alterada com sucesso");
 	}
 	
@@ -154,11 +161,12 @@ public class TarefaController {
 		UsuarioDto usuarioLogado = (UsuarioDto) session.getAttribute("usuarioLogado");
 			
 		if(usuarioLogado==null || usuarioLogado.getId()!=idUsuario) {
-			log.error("Erro exluir Tarefa - nao autorizado" );
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Erro exluir Tarefa - nao autorizado");
+			log.error("Não foi possível exluir tarefa - não autorizado" );
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Não foi possível exluir tarefa - não autorizado");
 		}
 		
-		log.info("Excluir Tarefa; {}" + id);
+		log.info("Excluir tarefa; {} ", id);
+		log.info("Excluir usuario: {} ", usuarioLogado.getId());
 		tarefaService.excluirTarefa(id);		
 		return ResponseEntity.ok("Tarefa excluido com sucesso");
 	}
