@@ -21,7 +21,7 @@ public class UsuarioDto {
 	private String email;
 	private PerfilUsuarioEnum perfilUsuario;
 	private Integer flAtivo;	
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInclusao;
 	private String token;

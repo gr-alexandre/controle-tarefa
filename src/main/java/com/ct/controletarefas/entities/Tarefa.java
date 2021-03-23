@@ -45,12 +45,12 @@ public class Tarefa implements Serializable {
 	
 	@Column(name = "data_inclusao", nullable=false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date dataInclusao;
 	
 	@Column(name = "data_alteracao", nullable=true, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date dataAlteracao;
 	
 	
