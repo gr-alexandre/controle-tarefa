@@ -41,7 +41,7 @@ public class AuthController {
 	@ApiOperation(value = "Logar e gerar token")
 	@PostMapping(consumes = "application/json")
 	public ResponseEntity<Response<UsuarioDto>> auth(@Valid @RequestBody UsuarioCredenciais usuarioCredenciais,HttpServletRequest req, HttpServletResponse res, BindingResult result, HttpSession session) throws Exception{
-		
+
 		if(session.getAttribute("usuarioLogado") != null) {
 			session.removeAttribute("usuarioLogado");
 		}
@@ -49,14 +49,14 @@ public class AuthController {
 		Usuario usuario = new Usuario();
 		usuario = validarAcessoUsuario(usuarioCredenciais, result);
 		Response<UsuarioDto> response = new Response<UsuarioDto>();
-		
+
 		if(usuario==null) {
 			log.error("Não possível logar {}" , result.getAllErrors());
 			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 		UsuarioDto usuarioDto = this.converterParaUsuarioDto(usuario,res);
-		
+
 		response.setData(usuarioDto);
 		session.setAttribute("usuarioLogado", usuarioDto);
 		return ResponseEntity.ok(response);

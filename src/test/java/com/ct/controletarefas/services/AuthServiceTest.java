@@ -19,17 +19,17 @@ import com.ct.controletarefas.repositories.UsuarioRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 public class AuthServiceTest {
-	
+
 	@MockBean
 	UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	UsuarioService usuarioService;
-	
+
 	@Test
 	public void testLogin() {
 		BDDMockito.given(this.usuarioRepository.findByEmailAndPassword(Mockito.anyString(),Mockito.anyString())).willReturn(new Usuario());	
-		
+
 		Usuario usuario = this.usuarioService.login("email@emai.com", "123");
 		assertNotNull(usuario);
 	}

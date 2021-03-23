@@ -30,8 +30,8 @@ public class TarefaDto {
 	private String statusDescricao;
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date dataInclusao;
+	private Date dataInclusao;
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date dataAlteracao;
+	private Date dataAlteracao;
 }

@@ -29,27 +29,27 @@ import lombok.ToString;
 public class Usuario implements Serializable{
 	private static final long serialVersionUID = -3009157732242241606L;	
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(name = "nome", nullable=false)
 	private String nome;
-	
+
 	@Column(name = "email", nullable=false)
 	private String email;
-	
+
 	@Column(name = "password", nullable=false)
 	private String password;
-	
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "perfil_usuario", nullable=false)
 	private PerfilUsuarioEnum perfilUsuario;
-	
+
 	@Column(name = "fl_ativo", nullable=false)
 	private Integer flAtivo;
-	
+
 	@Column(name = "data_inclusao", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
-    private Date dataInclusao;
-	
+	private Date dataInclusao;
+
 }

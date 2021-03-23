@@ -20,15 +20,15 @@ import com.ct.controletarefas.enums.PerfilUsuarioEnum;
 @SpringBootTest
 @ActiveProfiles("test")
 public class UsuarioRepositoryTest {
-	
+
 	@Autowired
 	UsuarioRepository usuarioRepository;
-	
+
 	@After	
 	public void tearDowm() throws Exception{
 		this.usuarioRepository.deleteAll();
 	}
-	
+
 	@Test
 	public void testFindByEmailAndPassword() {
 		Usuario usuario = new Usuario();
@@ -41,13 +41,13 @@ public class UsuarioRepositoryTest {
 		usuario.setDataInclusao(new Date());
 		usuarioRepository.save(usuario);
 		Usuario usuarioRetorno = usuarioRepository.findByEmailAndPassword("email@email.com", "1234");
-		
+
 		assertEquals("Teste 01",usuarioRetorno.getNome());
 		assertEquals("email@email.com",usuarioRetorno.getEmail());
 		assertEquals(1,usuarioRetorno.getId());
 		assertEquals(PerfilUsuarioEnum.ROLE_SUPER_USER,usuarioRetorno.getPerfilUsuario());
 		assertEquals(1, usuarioRetorno.getFlAtivo());
-		
-		
+
+
 	}
 }

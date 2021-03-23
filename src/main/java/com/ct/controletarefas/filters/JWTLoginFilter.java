@@ -34,7 +34,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 			) throws IOException, ServletException {
 		TokenAuthenticationService.addAuthentication(res, auth.getName());
 	}
-	
+
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException {

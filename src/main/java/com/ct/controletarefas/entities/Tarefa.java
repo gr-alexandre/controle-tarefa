@@ -24,34 +24,34 @@ import lombok.ToString;
 @Entity
 @Table(name = "tarefa")
 public class Tarefa implements Serializable {
-	
+
 	private static final long serialVersionUID = -7526502149208345058L;	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "id_usuario", nullable=false)
 	private Long idUsuario;	
-	
+
 	@Column(name = "resumo_tarefa", nullable=false)
 	private String resumoTarefa;
-	
+
 	@Column(name = "descricao_tarefa", nullable=false)
 	private String descricaoTarefa;
-	
+
 	@Column(name = "status", nullable=false)
 	private int status;
-	
+
 	@Column(name = "data_inclusao", nullable=false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date dataInclusao;
-	
+	private Date dataInclusao;
+
 	@Column(name = "data_alteracao", nullable=true, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
-    private Date dataAlteracao;
-	
-	
+	private Date dataAlteracao;
+
+
 }

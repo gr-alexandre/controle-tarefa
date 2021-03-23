@@ -23,28 +23,28 @@ import com.ct.controletarefas.repositories.TarefaRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 public class TarefaServiceTest {
-	
+
 	@MockBean
 	TarefaRepository tarefaRepository;
-	
+
 	@Autowired
 	TarefaService tarefaService;
-	
+
 
 	@Test
 	public void testListarTarefasTodosUsuarios(){	
-		
+
 		BDDMockito.given(this.tarefaRepository.findAllsByOrderByStatusAsc()).willReturn(preencherListaTarefa());
 		List<Tarefa> listaTarefa = this.tarefaService.listarTarefasTodosUsuarios();
 		assertNotNull(listaTarefa);
 	}
-	
+
 	public void testListarTarefasPorIdUsuarios() {
 		BDDMockito.given(this.tarefaRepository.findByIdUsuarioOrderByStatusAsc(Mockito.anyLong())).willReturn(preencherListaTarefa());
 		List<Tarefa> listaTarefa = this.tarefaService.listarTarefasPorIdUsuarios((long) 1);
 		assertNotNull(listaTarefa);
 	}	
-	
+
 	public void testListarTarefasPorIdUsuariosPorStatus() {
 		BDDMockito.given(this.tarefaRepository.findByIdUsuarioAndStatusOrderByDataInclusaoDesc(Mockito.anyLong(),Mockito.anyInt())).willReturn(preencherListaTarefa());
 		List<Tarefa> listaTarefa = this.tarefaService.listarTarefasPorIdUsuariosPorStatus((long) 1, 0);
@@ -52,7 +52,7 @@ public class TarefaServiceTest {
 	}	
 
 	private List<Tarefa> preencherListaTarefa(){
-		
+
 		ArrayList<Tarefa> listaTarefa = new ArrayList<>();
 		Tarefa tarefa = new Tarefa();
 		tarefa.setId((long) 1);

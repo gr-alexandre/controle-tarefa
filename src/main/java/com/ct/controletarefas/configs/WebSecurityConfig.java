@@ -14,31 +14,31 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
+	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
-			.antMatchers("/api/controle-tarefa/auth").permitAll()
-			.antMatchers("/v2/api-docs",
-                    "/configuration/ui",
-                    "/swagger-resources/**",
-                    "/configuration/security",
-                    "/swagger-ui.html",
-                    "/webjars/**",
-                    "/actuator/**").permitAll()
-			.anyRequest().authenticated()
-			.and()
-			
-	
+		.antMatchers("/api/controle-tarefa/auth").permitAll()
+		.antMatchers("/v2/api-docs",
+				"/configuration/ui",
+				"/swagger-resources/**",
+				"/configuration/security",
+				"/swagger-ui.html",
+				"/webjars/**",
+				"/actuator/**").permitAll()
+		.anyRequest().authenticated()
+		.and()
 
-			// filtra outras requisições para verificar a presença do JWT no header
-			.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+
+		// filtra outras requisições para verificar a presença do JWT no header
+		.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// cria uma conta default
 		auth.inMemoryAuthentication()
-			.withUser("admin")
-			.password("{noop}123")
-			.roles("ADMIN");
+		.withUser("admin")
+		.password("{noop}123")
+		.roles("ADMIN");
 	}
 }

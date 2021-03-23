@@ -10,13 +10,13 @@ import com.ct.controletarefas.entities.Tarefa;
 
 @Repository
 public interface TarefaRepository extends JpaRepository<Tarefa, Long>{
-	
+
 	@Transactional(readOnly = true)
 	List<Tarefa> findAllsByOrderByStatusAsc();
-	
+
 	@Transactional(readOnly = true)
 	List<Tarefa> findByIdUsuarioOrderByStatusAsc(Long idUsuario);
-	
+
 	@Transactional(readOnly = true)
 	List<Tarefa> findByIdUsuarioAndStatusOrderByDataInclusaoDesc(Long idUsuario,int status);
 }

@@ -10,7 +10,7 @@ import lombok.ToString;
 public enum StatusTarefaEnum {
 	PENDING(0,"Pending"),
 	COMPLETED(1,"Completed");
-	
+
 	private final int id;
 	private final String descricao;
 
