@@ -93,7 +93,7 @@ public class TarefaController {
 		
 	}
 	
-	@ApiOperation(value = "Listar todas tarefas do todos usuário")
+	@ApiOperation(value = "Listar todas tarefas de todos usuário")
 	@GetMapping(value="/usuario/{idUsuario}" )
 	public ResponseEntity<ArrayList<TarefaDto>> listarTodasTarefasDoUsuario(@PathVariable Long idUsuario,HttpServletRequest req, HttpServletResponse res,HttpSession session) throws Exception {
 			
