@@ -45,6 +45,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Api(value = "Api Tarefa")
 public class TarefaController {
+	
+	private final String DATE_FORMAT_GSOM = "yyyy-MM-dd'T'HH:mm:ss";
 
 	@Autowired
 	TarefaService tarefaService;
@@ -91,7 +93,7 @@ public class TarefaController {
 
 		List<Tarefa> listaTarefa = tarefaService.listarTarefasTodosUsuarios();
 		ArrayList<TarefaDto> listaTarefaDto = new ArrayList<TarefaDto>();
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+		Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_GSOM).create();
 		listaTarefaDto = converterParaListaTarefaDto(listaTarefa);
 		return ResponseEntity.ok(gson.toJson(listaTarefaDto).toString());
 
@@ -113,7 +115,7 @@ public class TarefaController {
 		List<Tarefa> listaTarefa = tarefaService.listarTarefasPorIdUsuarios(idUsuario);
 		ArrayList<TarefaDto> listaTarefaDto = new ArrayList<TarefaDto>();
 		listaTarefaDto = converterParaListaTarefaDto(listaTarefa);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();	
+		Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_GSOM).create();	
 		return ResponseEntity.ok(gson.toJson(listaTarefaDto).toString());
 
 	}
@@ -133,7 +135,7 @@ public class TarefaController {
 		List<Tarefa> listaTarefa = tarefaService.listarTarefasPorIdUsuariosPorStatus(idUsuario,status);
 		ArrayList<TarefaDto> listaTarefaDto = new ArrayList<TarefaDto>();
 		listaTarefaDto = converterParaListaTarefaDto(listaTarefa);
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();	
+		Gson gson = new GsonBuilder().setDateFormat(DATE_FORMAT_GSOM).create();	
 		return ResponseEntity.ok(gson.toJson(listaTarefaDto).toString());
 
 	}
@@ -211,6 +213,5 @@ public class TarefaController {
 		return listaTarefaDto;
 
 	}	
-
-
+	
 }
