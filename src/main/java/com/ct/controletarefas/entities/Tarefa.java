@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -41,14 +43,14 @@ public class Tarefa implements Serializable {
 	@Column(name = "status", nullable=false)
 	private int status;
 	
-	@Column(name = "data_inclusao", nullable=false)
+	@Column(name = "data_inclusao", nullable=false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
-	//@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
     private Date dataInclusao;
 	
-	@Column(name = "data_alteracao", nullable=true)
+	@Column(name = "data_alteracao", nullable=true, columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	@Temporal(TemporalType.TIMESTAMP)
-	//@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
+	@JsonFormat(pattern="yyyy-MM-ddTHH:mm:ss")
     private Date dataAlteracao;
 	
 	

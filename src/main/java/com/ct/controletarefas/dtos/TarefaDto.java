@@ -2,9 +2,13 @@ package com.ct.controletarefas.dtos;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +28,10 @@ public class TarefaDto {
 	private String descricaoTarefa;
 	private int status;
 	private String statusDescricao;
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date dataInclusao;
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date dataAlteracao;
 }
