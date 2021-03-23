@@ -24,6 +24,8 @@ lombok
 #Criacao usuario default
 Criar DB controle_tarefa
 
+#flyway que cria as tabelas da base de dados existe um script dentro do projeto  s\src\main\resources\db\migration\"V1__mariadb.sql"
+
 #Criacao usuarios default no DB controle_tarefa
 
 
