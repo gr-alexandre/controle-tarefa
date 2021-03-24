@@ -1,7 +1,7 @@
 # controle-tarefa
 Api do sistema de controle de tarefas Spring Boot
 
-#Tecnologia
+# Tecnologia
 Java 11
 Spring boot
 Junit 4
@@ -13,26 +13,35 @@ actuator
 prometheus
 lombok
 travisCi
-
-
-#Teste de integracao continua
-https://travis-ci.com/github/gr-alexandre/controle-tarefa
-
-#Para este exemplo não colocado o token na sessão de um redis, etc...
+IDE eclipse
+maven
+H2
 
 #Instalar lombok na IDE
 
-# Alterar no arquivo do projeto o caminho onde o log irá gravar application.properties esta default logging.file.name=C:/logSpring/log_ControleTarefa.log
+#Para este exemplo não foi utilizado o token na sessão de um redis, etc... e sim sessão da aplicação
 
-# Utilizei o Banco relacional mariaDB por nao precisar de tanta performace, poderia utilizar NOSQL
+# LOG
+#Alterar no arquivo do projeto o caminho onde o log irá gravar application.properties esta default logging.file.name=C:/logSpring/log_ControleTarefa.log
 
-#Criacao usuario default
-Criar DB controle_tarefa
+# Teste de integracao continua
+https://travis-ci.com/github/gr-alexandre/controle-tarefa
+
+# Banco de dados
+
+#Utilizei o Banco relacional mariaDB por nao precisar de tanta performace, poderia utilizar NOSQL
+
+#Utilizei o  banco H2 para testes unitario
+
+#Depois de instalar o banco de dados mariaDB criar o DataBase controle_tarefa
+
+#Configuração do acesso ao base e drive de conexão application.properties (MariaDB)
+
+#Configuração do acesso ao base e drive de conexão application-test.properties(H2)
 
 #flyway que cria as tabelas da base de dados existe um script dentro do projeto  s\src\main\resources\db\migration\"V1__mariadb.sql"
 
-#Criacao usuarios default no DB controle_tarefa
-
+#Criacão dos usuários default no DB controle_tarefa
 
 INSERT INTO usuario
 (
@@ -75,7 +84,7 @@ VALUES
  ,NOW() -- data_inclusao - DATETIME
 );
 
-#Documentação Api swagger
+# Documentação Api swagger
 http://localhost:8080/swagger-ui.html
 
 # Teste da URL pelo PostMan
@@ -89,7 +98,7 @@ http://localhost:8080/api/controle-tarefa/auth
 }
 
 
-#Pegar no retorno o token e colocar no header para todas as enpoints abaixo
+#Pegar no retorno o token e colocar no header para todos oss enpoints abaixo
 Key = Authorization value = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnckBlbWFpLmNvbSIsImV4cCI6MTYxNjQzNzA3MH0.EPbkowpS2DvAGmljiZMRlm6iElgDZQmVtXfTknGAvaaiWFHpI3No26VwUdkeKUMUXCyMbldE1QrmH25_aIg7tA
 
 # Bustar tarefas  por idUser e status
@@ -101,10 +110,10 @@ http://localhost:8080/api/controle-tarefa/tarefa/usuario/1/
 # Bustar tarefas de todos Usuarios - Apenas ROLE_SUPER_USER
 http://localhost:8080/api/controle-tarefa/tarefa/
 
-#Excluir tarefa 
+# Excluir tarefa 
 http://localhost:8080/api/controle-tarefa/tarefa/id/8/usuario/4
 
-#Incluir tarefa
+# Incluir tarefa
 http://localhost:8080/api/controle-tarefa/tarefa
 {
    "idUsuario":2,
@@ -112,7 +121,7 @@ http://localhost:8080/api/controle-tarefa/tarefa
    "descricaoTarefa":"TESTE  TESTE"
 }
 
-#Alterar tarefa 
+# Alterar tarefa 
 http://localhost:8080/api/controle-tarefa/tarefa
 
 {
@@ -122,7 +131,7 @@ http://localhost:8080/api/controle-tarefa/tarefa
     "descricaoTarefa":"TESTE  TESTE ----"
 }
 
-#Monitoramento
+# Monitoramento
 http://localhost:8080/actuator/
 http://localhost:8080/actuator/healthcheck
 http://localhost:8080/actuator/prometheus
