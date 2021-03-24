@@ -109,7 +109,7 @@ VALUES
 # Bustar tarefas por idUser
 #http://localhost:8080/api/controle-tarefa/tarefa/usuario/1/
 
-# Bustar tarefas de todos Usuarios - Apenas ROLE_SUPER_USER
+# Bustar tarefas de todos usuários - apenas ROLE_SUPER_USER
 #http://localhost:8080/api/controle-tarefa/tarefa/
 
 # Excluir tarefa 
