@@ -173,6 +173,7 @@
 	          <artifactId>maven-surefire-plugin</artifactId>
 	        </plugin>
 		</plugins>
+		<defaultGoal>install</defaultGoal>
 	</build>
 
 </project>
