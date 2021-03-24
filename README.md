@@ -12,6 +12,11 @@ swagger
 actuator
 prometheus
 lombok
+travisCi
+
+
+#Teste de integracao continua
+https://travis-ci.com/github/gr-alexandre/controle-tarefa
 
 #Para este exemplo não colocado o token na sessão de um redis, etc...
 
