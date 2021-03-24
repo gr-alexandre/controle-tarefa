@@ -22,7 +22,7 @@ Api do sistema de controle de tarefas Spring Boot
 #Para este exemplo não foi utilizado o token na sessão de um redis, etc... e sim sessão da aplicação
 
 # LOG
-#Alterar no arquivo do projeto o caminho onde o log irá gravar application.properties esta default logging.file.name=C:/logSpring/log_ControleTarefa.log
+#Alterar no arquivo(application.properties) do projeto o caminho onde o log será gravado esta como default logging.file.name=C:/logSpring/log_ControleTarefa.log
 
 # Teste de integracao continua
 https://travis-ci.com/github/gr-alexandre/controle-tarefa
