@@ -2,20 +2,20 @@
 Api do sistema de controle de tarefas Spring Boot
 
 # Tecnologia
-Java 11
-Spring boot
-Junit 4
-flyway
-EhCache
-MariaDB
-swagger
-actuator
-prometheus
-lombok
-travisCi
-IDE eclipse
-maven
-H2
+#Java 11
+#Spring boot
+#Junit 4
+#flyway
+#EhCache
+#MariaDB
+#swagger
+#actuator
+#prometheus
+#lombok
+#travisCi
+#IDE eclipse
+#maven
+#H2
 
 #Instalar lombok na IDE
 
