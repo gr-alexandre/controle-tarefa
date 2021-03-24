@@ -99,8 +99,9 @@ VALUES
 }
 
 
-#Pegar no retorno o token e colocar no header para todos oss enpoints abaixo
-#Key = Authorization value = eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJnckBlbWFpLmNvbSIsImV4cCI6MTYxNjQzNzA3MH0.EPbkowpS2DvAGmljiZMRlm6iElgDZQmVtXfTknGAvaaiWFHpI3No26VwUdkeKUMUXCyMbldE1QrmH25_aIg7tA
+#Pegar no retorno o token e colocar no header para todos os enpoints abaixo
+
+#Key = Authorization value = <token>
 
 # Bustar tarefas  por idUser e status
 #http://localhost:8080/api/controle-tarefa/tarefa/usuario/1/status/0
