@@ -174,7 +174,7 @@
 			  <version>3.0.0-M3</version>
 			</plugin>
 		</plugins>
-		<defaultGoal>test</defaultGoal>
+
 	</build>
 	
 </project>
